@@ -170,8 +170,11 @@
 #include <iostream>
 
 int main() {
-    long int n;
+    unsigned long long n; // Используем unsigned long long для увеличенного диапазона значений
     std::cin >> n;
-    std::cout << n * (n + 1) / 2 << "\n";
+
+    // Вычисляем сумму, выполняя деление в нужный момент, чтобы избежать переполнения
+    std::cout << (n / 2) * (n + 1) + ((n % 2) * ((n + 1) / 2)) << "\n";
+
     return 0;
 }

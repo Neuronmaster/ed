@@ -276,3 +276,47 @@
 //     return 0;
 // }
 
+// Урок 1.12 Цикл while и do while
+//  Посчитать сумму до введенного целого числа
+// #include <iostream>
+
+// int main()
+// {
+//     int sum = 0;
+//     int n;
+//     std::cin >> n;
+//     if (n >= 1){
+//     while (n > 0)
+//     {
+//         sum += n;
+//         n--;
+//     }
+//     std::cout << sum << std::endl;
+//     } else {
+//         std::cout << "Please enter positive number" << std::endl;
+//     }
+//     return 0;
+// }
+
+// Угадай число
+#include <iostream>
+int main()
+{
+    int number = 7;
+    int guess;
+    do
+    {
+        std::cout << "Guess the number: ";
+        std::cin >> guess;
+        if (guess > number)
+        {
+            std::cout << "Too high" << std::endl;
+        }
+        else if (guess < number)
+        {
+            std::cout << "Too low" << std::endl;
+        }
+    } while (guess != number);
+    std::cout << "Congratulations! You guessed the number." << std::endl;
+    return 0;
+}
