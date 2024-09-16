@@ -299,24 +299,88 @@
 // }
 
 // Угадай число
+// #include <iostream>
+// int main()
+// {
+//     int number = 7;
+//     int guess;
+//     do
+//     {
+//         std::cout << "Guess the number: ";
+//         std::cin >> guess;
+//         if (guess > number)
+//         {
+//             std::cout << "Too high" << std::endl;
+//         }
+//         else if (guess < number)
+//         {
+//             std::cout << "Too low" << std::endl;
+//         }
+//     } while (guess != number);
+//     std::cout << "Congratulations! You guessed the number." << std::endl;
+//     return 0;
+// }
+
+
+// Урок 1.13 цикл for
+// Цикл for с диапазоном (Range-based for loop):
+// C++ поддерживает улучшенный цикл for, который позволяет итерироваться 
+// по контейнерам и массивам.
 #include <iostream>
-int main()
-{
-    int number = 7;
-    int guess;
-    do
+#include <vector>
+
+int main() {
+    std::vector<int> numbers = {1, 2, 3, 4, 5};
+    int sum = 0;
+    for (auto number : numbers)
+    {  // Итерация по элементам вектора
+        std::cout << number << " ";
+        sum += number;
+    }
+    std::cout << "\nSum: " << sum << std::endl;
+    std::map <std::string, int> b = {
+        {"one", 1},
+        {"two", 2},
+        {"three", 3}
+    };
+    sum = 0;
+    std::string concat;
+    for (auto i:b)
     {
-        std::cout << "Guess the number: ";
-        std::cin >> guess;
-        if (guess > number)
+        concat += i.first;
+        sum += i.second;
+    }
+    std::cout << "Concatenated string: " << concat << std::endl;
+    std::cout << "Sum: " << sum << std::endl;
+
+    std::string a ="asdfasdfasdf";
+    int i = 0;
+    for (auto c:a)
+    {
+        if (c == 'a')
         {
-            std::cout << "Too high" << std::endl;
+            std::cout << i << std::endl;
         }
-        else if (guess < number)
+        ++i;
+    }
+
+    for (int i = 0; i < a.size(); ++i)
+    {
+        if (a[i] == 'a')
         {
-            std::cout << "Too low" << std::endl;
+            if (i == 0)
+            {
+                continue;
+            }
+            if (i == 8)
+            {
+                break;
+            }
+           std::cout << i << std::endl;
         }
-    } while (guess != number);
-    std::cout << "Congratulations! You guessed the number." << std::endl;
+    }
     return 0;
 }
+
+// В этом примере: for (int number : numbers) итерируется 
+// по всем элементам вектора numbers.
