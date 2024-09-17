@@ -327,62 +327,123 @@
 // Цикл for с диапазоном (Range-based for loop):
 // C++ поддерживает улучшенный цикл for, который позволяет итерироваться 
 // по контейнерам и массивам.
-#include <iostream>
-#include <vector>
+// #include <iostream>
+// #include <vector>
 
-int main() {
-    std::vector<int> numbers = {1, 2, 3, 4, 5};
-    int sum = 0;
-    for (auto number : numbers)
-    {  // Итерация по элементам вектора
-        std::cout << number << " ";
-        sum += number;
-    }
-    std::cout << "\nSum: " << sum << std::endl;
-    std::map <std::string, int> b = {
-        {"one", 1},
-        {"two", 2},
-        {"three", 3}
-    };
-    sum = 0;
-    std::string concat;
-    for (auto i:b)
-    {
-        concat += i.first;
-        sum += i.second;
-    }
-    std::cout << "Concatenated string: " << concat << std::endl;
-    std::cout << "Sum: " << sum << std::endl;
+// int main() {
+//     std::vector<int> numbers = {1, 2, 3, 4, 5};
+//     int sum = 0;
+//     for (auto number : numbers)
+//     {  // Итерация по элементам вектора
+//         std::cout << number << " ";
+//         sum += number;
+//     }
+//     std::cout << "\nSum: " << sum << std::endl;
+//     std::map <std::string, int> b = {
+//         {"one", 1},
+//         {"two", 2},
+//         {"three", 3}
+//     };
+//     sum = 0;
+//     std::string concat;
+//     for (auto i:b)
+//     {
+//         concat += i.first;
+//         sum += i.second;
+//     }
+//     std::cout << "Concatenated string: " << concat << std::endl;
+//     std::cout << "Sum: " << sum << std::endl;
 
-    std::string a ="asdfasdfasdf";
-    int i = 0;
-    for (auto c:a)
-    {
-        if (c == 'a')
-        {
-            std::cout << i << std::endl;
-        }
-        ++i;
-    }
+//     std::string a ="asdfasdfasdf";
+//     int i = 0;
+//     for (auto c:a)
+//     {
+//         if (c == 'a')
+//         {
+//             std::cout << i << std::endl;
+//         }
+//         ++i;
+//     }
 
-    for (int i = 0; i < a.size(); ++i)
-    {
-        if (a[i] == 'a')
-        {
-            if (i == 0)
-            {
-                continue;
-            }
-            if (i == 8)
-            {
-                break;
-            }
-           std::cout << i << std::endl;
-        }
-    }
-    return 0;
-}
+//     for (int i = 0; i < a.size(); ++i)
+//     {
+//         if (a[i] == 'a')
+//         {
+//             if (i == 0)
+//             {
+//                 continue;
+//             }
+//             if (i == 8)
+//             {
+//                 break;
+//             }
+//            std::cout << i << std::endl;
+//         }
+//     }
+//     return 0;
+// }
 
 // В этом примере: for (int number : numbers) итерируется 
 // по всем элементам вектора numbers.
 // Неделя 2
+// Передача параметров в функцию по ссылке
+// #include <algorithm>
+// #include <iostream>
+// #include <vector>
+// #include <string>
+
+// void swap (int& x, int& y)
+// {
+//     int temp = x;
+//     x = y;
+//     y = temp;
+// }
+// void sort (std::vector <int>& v)
+// {
+//     std::sort(begin(v), end(v));
+// }
+
+// int main()
+// {
+//     int a = 5;
+//     int b = 10;
+//     swap(a, b);
+//     std::cout << a << " " << b << std::endl;
+//     std::vector <int> nums = {3, 6, 1, 2, 0, 2};
+//     sort(nums);
+//     for (auto i : nums)
+//     {
+//         std::cout << i << " ";
+//     }
+//     return 0;
+// }
+// 
+
+
+// Передача параметров функций по константной ссылке
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <map>
+#include <chrono>
+
+struct Person
+{
+    std::string name;
+    std::string surname;
+    int age;
+};
+
+std::vector<Person> getMoscowPopulation();
+void printPopulationSize(std::vector<Person> p)
+{
+    std::cout << "There are " << p.size() << " people in Moscow" << std::endl;
+}
+
+int main() {
+    std::vector<Person> people = getMoscowPopulation();
+    printPopulationSize(people);
+
+    return 0;
+}
