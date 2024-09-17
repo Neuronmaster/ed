@@ -421,6 +421,7 @@
 
 
 // Передача параметров функций по константной ссылке
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -435,15 +436,32 @@ struct Person
     int age;
 };
 
-std::vector<Person> getMoscowPopulation();
-void printPopulationSize(std::vector<Person> p)
+// Реализация функции getMoscowPopulation
+std::vector<Person> getMoscowPopulation() {
+    // Пример данных для демонстрации
+    return {
+        {"Ivan", "Ivanov", 30}, {"Maria", "Petrova", 25},
+        {"Sergey", "Sidorov", 40}, {"Alexey", "Alexeev", 35},
+        {"Petr", "Petrov", 20}, {"Vladimir", "Vladimirov", 45},
+        {"Dmitry", "Dmitriev", 28}, {"Andrey", "Andreev", 32},
+        {"Alexey", "Sidorov", 50}, {"Alexey", "Ivanov", 55}
+    };
+}
+
+void printPopulationSize(const std::vector<Person>& p)
 {
     std::cout << "There are " << p.size() << " people in Moscow" << std::endl;
 }
 
 int main() {
-    std::vector<Person> people = getMoscowPopulation();
-    printPopulationSize(people);
+    auto start = std::chrono::steady_clock::now();
+    // std::vector<Person> people = getMoscowPopulation();
+    // auto finish = std::chrono::steady_clock::now();
+    // std::cout << "getMoscowPopulation" << "Time: " << std::chrono::duration_cast<std::chrono::microseconds>(finish - start).count() << "mks" << std::endl;
+    // start = std::chrono::steady_clock::now();
+    printPopulationSize(getMoscowPopulation());
+    auto finish = std::chrono::steady_clock::now();
+    std::cout << "printPopulationSize" << "Time: " << std::chrono::duration_cast<std::chrono::microseconds>(finish - start).count() << "mks" << std::endl;
 
     return 0;
 }
