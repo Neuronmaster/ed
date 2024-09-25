@@ -694,22 +694,218 @@
 // Вывод
 
 // стандартный вывод или output.txt
+// #include <iostream>
+// #include <cmath> // для функции pow()
+
+// int main() {
+//     int n;
+//     std::cin >> n;
+    
+//     double sum = 0.0;
+
+//     // Вычисляем сумму ряда
+//     for (int i = 1; i <= n; ++i) {
+//         sum += pow(-1.0, i + 1) / i; // pow(-1, i + 1) задает чередующийся знак
+//     }
+
+//     // Выводим результат с точностью, по умолчанию используемой в std::cout
+//     std::cout << sum << std::endl;
+
+//     return 0;
+// }
+
+
+// Задача 2.4.1
+
+// Пароли
+
+// Пароль от некоторого сервиса должен удовлетворять таким ограничениям:
+
+// состоять из символов таблицы ASCII с кодами от 33 до 126;
+// быть не короче 8 символов и не длиннее 14;
+// из 4 классов символов — большие буквы, маленькие буквы, цифры, прочие символы — в пароле должны присутствовать не менее трёх любых.
+// Напишите программу, которая проверит, что введённый пароль подходит под эти ограничения.
+
+// Формат ввода
+// На входе дана одна строка с паролем.
+
+// Формат вывода
+// Выведите YES, если пароль удовлетворяет требованиям, и NO в противном случае.
+
+// Пример
+// Ввод
+// Vasya123
+// Вывод
+// YES
+// Примечание
+// Вы можете воспользоваться функциями из заголовочного файла cctype или реализовать самостоятельно их аналоги.
+
+// Ограничение памяти
+
+// 64.0 Мб
+
+// Ограничение времени
+
+// 1 с
+
+// Ввод
+
+// стандартный ввод или input.txt
+
+// Вывод
+
+// стандартный вывод или output.txt
+
+// #include <iostream>
+// #include <string>
+// #include <cctype>
+
+// int main() {
+//     std::string password;
+//     std::cin >> password;
+//     if (password.size() < 8 || password.size() > 14) {
+//         std::cout << "NO" << std::endl;
+//     } else {
+//         bool has_upper = false, has_lower = false, has_digit = false, has_other = false;
+//         for (char ch : password) {
+//             if (isupper(ch)) {
+//                 has_upper = true;
+//             } else if (islower(ch)) {
+//                 has_lower = true;
+//             } else if (isdigit(ch)) {
+//                 has_digit = true;
+//             } else {
+//                 has_other = true;
+//             }
+//         }
+//         if ((has_upper + has_lower + has_digit + has_other) < 3) {
+//             std::cout << "NO" << std::endl;
+//         } else {
+//             std::cout << "YES" << std::endl;
+//         }
+//     }
+//     return 0;
+// }
+
+
+// Задача 2.4.2
+
+// Известный алгоритм Soundex определяет, похожи ли два английских слова по звучанию. 
+// На вход он принимает слово и заменяет его на некоторый четырёхсимвольный код. Если коды двух слов совпадают, то слова, как правило, звучат похоже.
+
+// Вам требуется реализовать этот алгоритм. Он работает так:
+
+// Первая буква слова сохраняется.
+// В остальной части слова буквы a, e, h, i, o, u, w и y удаляются;
+// Оставшиеся буквы заменяются на цифры от 1 до 6, причём похожим по звучанию буквам 
+// соответствуют одинаковые цифры:
+// b, f, p, v: 1
+// c, g, j, k, q, s, x, z: 2
+// d, t: 3
+// l: 4
+// m, n: 5
+// r: 6
+
+// Любая последовательность идущих подряд одинаковых цифр сокращается до одной такой 
+// цифры.
+// Итоговая строка обрезается до первых четырёх символов.
+// Если длина строки получилась меньше четырёх символов, в конце добавляются нули.
+// Примеры:
+
+// ammonium → ammnm → a5555 → a5 → a500.
+
+// implementation → implmnttn → i51455335 → i514535 → i514.
+
+// Input format
+// На вход подаётся одно непустое слово из строчных латинских букв. Длина слова не 
+// превосходит 20 символов.
+
+// Output format
+// Напечатайте четырёхбуквенный код, соответствующий слову.
+
+// Example 1
+// Input
+// ammonium
+// Output
+// a500
+// Example 2
+// Input
+// implementation
+// Output
+// i514
+// Memory limit
+
+// 64.0 Mb
+
+// Time limit
+
+// 1 s
+
+// Input
+
+// stdin or input.txt
+
+// Output
+
+// stdout or output.txt
+
 #include <iostream>
-#include <cmath> // для функции pow()
+#include <string>
+#include <cctype>
+
+std::string soundex(const std::string& word) {
+    std::string result(1, tolower(word[0]));
+    for (size_t i = 1; i < word.size(); ++i) {
+        char ch = tolower(word[i]);
+        if (ch == 'b' || ch == 'f' || ch == 'p' || ch == 'v') {
+            result += '1';
+        } else if (ch == 'c' || ch == 'g' || ch == 'j' || ch == 'k' || ch == 'q' || ch == 's' || ch == 'x' || ch == 'z') {
+            result += '2';
+        } else if (ch == 'd' || ch == 't') {
+            result += '3';
+        } else if (ch == 'l') {
+            result += '4';
+        } else if (ch == 'm' || ch == 'n') {
+            result += '5';
+        } else if (ch == 'r') {
+            result += '6';
+        }
+    }
+    return result;
+}
 
 int main() {
-    int n;
-    std::cin >> n;
-    
-    double sum = 0.0;
-
-    // Вычисляем сумму ряда
-    for (int i = 1; i <= n; ++i) {
-        sum += pow(-1.0, i + 1) / i; // pow(-1, i + 1) задает чередующийся знак
+    std::string word;
+    std::cin >> word;
+    if (word.size() <= 20) {
+        word.resize(4, '0');
+        while (word.size() > 4 && word.back() == '0') {
+            word.pop_back();
+        }
+        if (word.size() < 4) {
+            word.insert(0, 4 - word.size(), '0');
+        }
+        if (word.front() == '0') {
+            word.erase(0, 1);
+        }
+        if (word.back() == '0') {
+            word.pop_back();
+        }
+        if (word.empty()) {
+            word = "0000";
+        }
+        if (word.size() > 4) {
+            word = word.substr(0, 4);
+        }
+        if (word.front() == '0') {
+            word.erase(0, 1);
+        }
+        if (word.back() == '0') {
+            word.pop_back();
+        }
+    std::cout << soundex(word) << std::endl;
+    } else {
+        std::cout << "Too long " << std::endl;
     }
-
-    // Выводим результат с точностью, по умолчанию используемой в std::cout
-    std::cout << sum << std::endl;
-
     return 0;
 }
