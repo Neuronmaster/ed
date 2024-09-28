@@ -850,62 +850,60 @@
 // stdout or output.txt
 
 #include <iostream>
-#include <string>
-#include <cctype>
+#include <unordered_map>
 
 std::string soundex(const std::string& word) {
-    std::string result(1, tolower(word[0]));
-    for (size_t i = 1; i < word.size(); ++i) {
-        char ch = tolower(word[i]);
-        if (ch == 'b' || ch == 'f' || ch == 'p' || ch == 'v') {
-            result += '1';
-        } else if (ch == 'c' || ch == 'g' || ch == 'j' || ch == 'k' || ch == 'q' || ch == 's' || ch == 'x' || ch == 'z') {
-            result += '2';
-        } else if (ch == 'd' || ch == 't') {
-            result += '3';
-        } else if (ch == 'l') {
-            result += '4';
-        } else if (ch == 'm' || ch == 'n') {
-            result += '5';
-        } else if (ch == 'r') {
-            result += '6';
+    // Словарь для замены букв на цифры
+    std::unordered_map<char, char> char_to_digit = {
+        {'b', '1'}, {'f', '1'}, {'p', '1'}, {'v', '1'},
+        {'c', '2'}, {'g', '2'}, {'j', '2'}, {'k', '2'}, {'q', '2'}, {'s', '2'}, {'x', '2'}, {'z', '2'},
+        {'d', '3'}, {'t', '3'},
+        {'l', '4'},
+        {'m', '5'}, {'n', '5'},
+        {'r', '6'}
+    };
+
+    // Первая буква остаётся неизменной
+    std::string result = word.substr(0, 1);
+
+    // Преобразование остальной части слова
+    char prev_digit = 0;
+    for (size_t i = 1; i < word.length(); ++i) {
+        char c = word[i];
+
+        // Пропускаем буквы a, e, h, i, o, u, w, y
+        if (c == 'a' || c == 'e' || c == 'h' || c == 'i' || c == 'o' || c == 'u' || c == 'w' || c == 'y') {
+            continue;
+        }
+
+        // Заменяем букву на цифру, если она есть в словаре
+        if (char_to_digit.find(c) != char_to_digit.end()) {
+            char digit = char_to_digit[c];
+
+            // Если цифра не такая же, как предыдущая, добавляем её
+            if (digit != prev_digit) {
+                result += digit;
+                prev_digit = digit;
+            }
         }
     }
+
+    // Обрезаем или добавляем нули, чтобы получить строку длиной 4 символа
+    if (result.length() < 4) {
+        result.append(4 - result.length(), '0');
+    } else if (result.length() > 4) {
+        result = result.substr(0, 4);
+    }
+
     return result;
 }
 
 int main() {
     std::string word;
     std::cin >> word;
-    if (word.size() <= 20) {
-        word.resize(4, '0');
-        while (word.size() > 4 && word.back() == '0') {
-            word.pop_back();
-        }
-        if (word.size() < 4) {
-            word.insert(0, 4 - word.size(), '0');
-        }
-        if (word.front() == '0') {
-            word.erase(0, 1);
-        }
-        if (word.back() == '0') {
-            word.pop_back();
-        }
-        if (word.empty()) {
-            word = "0000";
-        }
-        if (word.size() > 4) {
-            word = word.substr(0, 4);
-        }
-        if (word.front() == '0') {
-            word.erase(0, 1);
-        }
-        if (word.back() == '0') {
-            word.pop_back();
-        }
-    std::cout << soundex(word) << std::endl;
-    } else {
-        std::cout << "Too long " << std::endl;
-    }
+
+    std::string soundex_code = soundex(word);
+    std::cout << soundex_code << std::endl;
+
     return 0;
 }
