@@ -849,26 +849,119 @@
 
 // stdout or output.txt
 
+// #include <iostream>
+// #include <unordered_map>
+
+// std::string soundex(const std::string& word) {
+//     // Словарь для замены букв на цифры
+//     std::unordered_map<char, char> char_to_digit = {
+//         {'b', '1'}, {'f', '1'}, {'p', '1'}, {'v', '1'},
+//         {'c', '2'}, {'g', '2'}, {'j', '2'}, {'k', '2'}, {'q', '2'}, {'s', '2'}, {'x', '2'}, {'z', '2'},
+//         {'d', '3'}, {'t', '3'},
+//         {'l', '4'},
+//         {'m', '5'}, {'n', '5'},
+//         {'r', '6'}
+//     };
+
+//     // Первая буква остаётся неизменной
+//     std::string result = word.substr(0, 1);
+
+//     // Преобразование остальной части слова
+//     char prev_digit = 0;
+//     for (size_t i = 1; i < word.length(); ++i) {
+//         char c = word[i];
+
+//         // Пропускаем буквы a, e, h, i, o, u, w, y
+//         if (c == 'a' || c == 'e' || c == 'h' || c == 'i' || c == 'o' || c == 'u' || c == 'w' || c == 'y') {
+//             continue;
+//         }
+
+//         // Заменяем букву на цифру, если она есть в словаре
+//         if (char_to_digit.find(c) != char_to_digit.end()) {
+//             char digit = char_to_digit[c];
+
+//             // Если цифра не такая же, как предыдущая, добавляем её
+//             if (digit != prev_digit) {
+//                 result += digit;
+//                 prev_digit = digit;
+//             }
+//         }
+//     }
+
+//     // Обрезаем или добавляем нули, чтобы получить строку длиной 4 символа
+//     if (result.length() < 4) {
+//         result.append(4 - result.length(), '0');
+//     } else if (result.length() > 4) {
+//         result = result.substr(0, 4);
+//     }
+
+//     return result;
+// }
+
+// int main() {
+//     std::string word;
+//     std::cin >> word;
+
+//     std::string soundex_code = soundex(word);
+//     std::cout << soundex_code << std::endl;
+
+//     return 0;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include <iostream>
 #include <unordered_map>
 
-std::string soundex(const std::string& word) {
-    // Словарь для замены букв на цифры
-    std::unordered_map<char, char> char_to_digit = {
-        {'b', '1'}, {'f', '1'}, {'p', '1'}, {'v', '1'},
-        {'c', '2'}, {'g', '2'}, {'j', '2'}, {'k', '2'}, {'q', '2'}, {'s', '2'}, {'x', '2'}, {'z', '2'},
-        {'d', '3'}, {'t', '3'},
-        {'l', '4'},
-        {'m', '5'}, {'n', '5'},
-        {'r', '6'}
-    };
+std::unordered_map<char, char> char_to_digit = {
+    {'b', '1'}, {'f', '1'}, {'p', '1'}, {'v', '1'},
+    {'c', '2'}, {'g', '2'}, {'j', '2'}, {'k', '2'}, {'q', '2'}, {'s', '2'}, {'x', '2'}, {'z', '2'},
+    {'d', '3'}, {'t', '3'},
+    {'l', '4'},
+    {'m', '5'}, {'n', '5'},
+    {'r', '6'}
+};
 
-    // Первая буква остаётся неизменной
-    std::string result = word.substr(0, 1);
+int main()
+{
+    std::string word;
+    std::cin >> word;
+    std::string string_change = word;
 
-    // Преобразование остальной части слова
-    char prev_digit = 0;
-    for (size_t i = 1; i < word.length(); ++i) {
+    for (size_t i = 0; i < word.length(); ++i)
+    {
         char c = word[i];
 
         // Пропускаем буквы a, e, h, i, o, u, w, y
@@ -876,34 +969,12 @@ std::string soundex(const std::string& word) {
             continue;
         }
 
-        // Заменяем букву на цифру, если она есть в словаре
+        // Проверяем, есть ли символ в карте и добавляем соответствующее значение
         if (char_to_digit.find(c) != char_to_digit.end()) {
-            char digit = char_to_digit[c];
-
-            // Если цифра не такая же, как предыдущая, добавляем её
-            if (digit != prev_digit) {
-                result += digit;
-                prev_digit = digit;
-            }
+            string_change[i] = char_to_digit[c];
         }
     }
 
-    // Обрезаем или добавляем нули, чтобы получить строку длиной 4 символа
-    if (result.length() < 4) {
-        result.append(4 - result.length(), '0');
-    } else if (result.length() > 4) {
-        result = result.substr(0, 4);
-    }
-
-    return result;
-}
-
-int main() {
-    std::string word;
-    std::cin >> word;
-
-    std::string soundex_code = soundex(word);
-    std::cout << soundex_code << std::endl;
-
+    std::cout << string_change << std::endl;
     return 0;
 }
